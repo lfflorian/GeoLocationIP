@@ -1,0 +1,10 @@
+version: '3.4'
+
+services:
+  api:
+    build:
+      context: ./
+      dockerfile: ./GeoAPI.webapi/Dockerfile
+    ports:
+      - "5050:80"
+    restart: always
