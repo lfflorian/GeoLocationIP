@@ -10,5 +10,6 @@ namespace GeoAPI.Entities
     {
         public string IP { get; set; }
         public string Geolocation { get; set; }
+        public bool Found { get; set; }
     }
 }

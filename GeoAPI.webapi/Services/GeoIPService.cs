@@ -1,5 +1,6 @@
 ﻿using GeoAPI.Entities;
 using MaxMind.GeoIP2;
+using MaxMind.GeoIP2.Responses;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -15,19 +16,38 @@ namespace GeoAPI.webapi.Services
         {
             _config = configuration;
         }
-        public IPLocation GetGeolocalization(string ip)
+        public async Task<IPLocation> GetGeolocalization(string ip)
         {
             IPLocation iPLocation = new IPLocation();
-            iPLocation.IP = ip;
-
+            CountryResponse countryResponse = new CountryResponse();
+            
             using (var reader = new DatabaseReader(this._config["AppSettings:GeoDb"]))
             {
-                var response = reader.Country(iPLocation.IP);
+                try
+                {
+                    var response = reader.TryCountry(ip, out countryResponse);
 
-                iPLocation.Geolocation = response.Country.Name;
+                    if (response)
+                    {
+                        iPLocation.IP = countryResponse.Traits.IPAddress;
+                        iPLocation.Geolocation = countryResponse.Country.Name;
+                        iPLocation.Found = true;
+                    }
+                    else
+                    {
+                        iPLocation.IP = ip;
+                        iPLocation.Found = false;
+                    }
+                }
+                catch (Exception es)
+                {
+                    iPLocation.IP = ip;
+                    iPLocation.Found = false;
+                    Console.WriteLine($"ip ${ip} not found with error: {es.Message}");
+                }
             }
 
-            return iPLocation;
+            return await Task.FromResult(iPLocation);
         }
     }
 }

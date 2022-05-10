@@ -28,8 +28,12 @@ namespace GeoAPI.webapi.Controllers
         [ServiceFilter(typeof(ModelValidationAttribute))]
         public async Task<IActionResult> Get([FromQuery] GeolocationRequest req)
         {
-            var loc = GeoIPService.GetGeolocalization(req.IP);
-            return Ok(loc);
+            var location = await GeoIPService.GetGeolocalization(req.IP);
+
+            if (location.Found)
+                return Ok(location);
+            else
+                return NotFound(location);
         }
 
         [HttpPost]
@@ -37,12 +41,14 @@ namespace GeoAPI.webapi.Controllers
         public async Task<IActionResult> Post([FromBody] IEnumerable<GeolocationRequest> req)
         {
             List<IPLocation> iPLocations = new List<IPLocation>();
+            var reqList = req.ToList();
 
-            req.ToList().ForEach(ip => {
-                var loc = GeoIPService.GetGeolocalization(ip.IP);
+            for (int i = 0; i < reqList.Count(); i++)
+            {
+                var loc = await GeoIPService.GetGeolocalization(reqList[i].IP);
                 iPLocations.Add(loc);
-            });
-            
+            }
+
             return Ok(iPLocations);
         }
     }

@@ -9,7 +9,7 @@ namespace GeoAPI.webapi.Model.Request
     public class GeolocationRequest
     {
         [Required(ErrorMessage = "IP is required")]
-        [RegularExpression(@"\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b", ErrorMessage = "the input is not a valid IP")]
+        [RegularExpression(@"^(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9])\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9]|0)\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9]|0)\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[0-9])$", ErrorMessage = "the input is not a valid IP")]
         public string IP { get; set; }
     }
 }

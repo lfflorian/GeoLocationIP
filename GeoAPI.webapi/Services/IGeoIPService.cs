@@ -8,6 +8,6 @@ namespace GeoAPI.webapi.Services
 {
     public interface IGeoIPService
     {
-        IPLocation GetGeolocalization(string ip);
+        Task<IPLocation> GetGeolocalization(string ip);
     }
 }
