@@ -1,4 +1,5 @@
 using GeoAPI.webapi.Middleware;
+using GeoAPI.webapi.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -34,6 +35,7 @@ namespace GeoAPI.webapi
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "GeoAPI.webapi", Version = "v1" });
             });
 
+            services.AddTransient<IGeoIPService, GeoIPService>();
             services.AddAutoMapper(typeof(Startup).Assembly);
         }
 
