@@ -9,7 +9,7 @@ List of all package installed from NuGet
 ## Project organization
 The solution was divided in different class projects with the purpose of having a better organization, implementing the separation of interests and for its scalability and maintenance.
 
--   Entities: were its defined the entities from database
+-   Entities: were its defined the entities
 -   Web Api: the main project
 --  Controllers : definition of the controllers
 --  middleware : utilities classes using as middleware 
@@ -19,7 +19,7 @@ The solution was divided in different class projects with the purpose of having 
 ## Features
 Description of different features implemented on project
 -   Docker : using docker to containerize the application and run on different computers in linux server
--   Dto : Data Transfer object, used for separate entities that communicate with the database between client endpoint
+-   Dto : Data Transfer object, used for separate entities that communicate with different services
 -   Handling Error Globally : static class used for handling error globally, with this, we can have a clean controllers without try catch
 -   Action Filter : used for validate the user request schema
 -   Asynchronous : used asynchronous code for avoid performance bottlenecks and improve the responsiveness of our application
