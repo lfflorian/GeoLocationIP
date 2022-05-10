@@ -35,8 +35,10 @@ there are 2 methods for test:
 ## GET 
 
 the web api is running in 5050 port, so, use the get method with the next url:
-http://localhost:5050/api/Geolocation?ip=<IP request>
+http://localhost:5050/api/Geolocation?ip=IP_to_request
+
 example:
+
 http://localhost:5050/api/Geolocation?ip=141.7.255.74
 
 you will get the following response
